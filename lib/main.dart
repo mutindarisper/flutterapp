@@ -1,51 +1,32 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:my_first_app/pages/counterpage.dart';
+import 'package:my_first_app/pages/first_page.dart';
+import 'package:my_first_app/pages/homepage.dart';
+import 'package:my_first_app/pages/profilepage.dart';
+import 'package:my_first_app/pages/settingspage.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
-  List names = ["Mitch", "Sharon", "Risper"];
+
+  //functions
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            //skeleton widget that holds different parts of my app
-
-            //  backgroundColor: const Color.fromARGB(255, 112, 190, 226),
-            appBar: AppBar(
-              title: Text('Risper',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  )),
-              backgroundColor: Colors.blueAccent,
-              elevation: 0,
-              leading: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            ),
-            body:
-                // ListView.builder(
-                //     itemCount: names.length,
-                //     itemBuilder: (context, index) => ListTile(
-                //           title: Text(names[index]),
-                //         ))));
-                GridView.builder(
-                    itemCount: 64,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4),
-                    itemBuilder: (context, index) => Container(
-                          color: Colors.deepPurple,
-                          margin: EdgeInsets.all(2),
-                        ))));
+      debugShowCheckedModeBanner: false, 
+      home: Counterpage(),
+      routes: {
+        '/firstpage': (context) => FirstPage(),  // Route to FirstPage 
+        '/homepage': (context) => Homepage(),
+        '/settingspage': (context) => SettingsPage(),
+        '/profilepage': (context) => ProfilePage()
+      });
   }
 }
