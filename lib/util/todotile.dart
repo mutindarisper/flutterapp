@@ -1,11 +1,12 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class ToDoTile extends StatelessWidget {
   final String taskName;
   final bool taskCompleted;
-  Function(bool?)? onChanged;
-  Function(BuildContext)? deleteTask;
+  final Function(bool?)? onChanged;
+  final Function()? deleteTask;
 
   ToDoTile({
     super.key,
@@ -19,43 +20,36 @@ class ToDoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 25.0, right: 25, top: 25),
-      child: Slidable(
-        key: Key(taskName), // Add key if necessary for Slidable
-        endActionPane: ActionPane(
-          motion: const StretchMotion(),
+      child: Container(
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SlidableAction(
+            Row(
+              children: [
+                Checkbox(
+                  value: taskCompleted,
+                  onChanged: onChanged,
+                ),
+                Text(
+                  taskName,
+                  style: TextStyle(
+                    decoration: taskCompleted
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                  ),
+                ),
+              ],
+            ),
+            IconButton(
+              icon: Icon(Icons.delete, color: Colors.red.shade600),
               onPressed: deleteTask,
-              icon: Icons.delete,
-              backgroundColor: Colors.red.shade100, // Use backgroundColor
-              foregroundColor:
-                  Colors.white, // Use foregroundColor for the icon color
-              borderRadius: BorderRadius.circular(12),
             ),
           ],
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            children: [
-              Checkbox(
-                value: taskCompleted,
-                onChanged: onChanged,
-              ),
-              Text(
-                taskName,
-                style: TextStyle(
-                  decoration: taskCompleted
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
